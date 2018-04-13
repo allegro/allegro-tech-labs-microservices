@@ -118,11 +118,11 @@ sed -i.bak "s/60/10/g" /etc/default/jmxtrans
 /vagrant/atl-data-server/gradlew tasks --no-daemon
 
 ### Copy reset env script
-cp /tmp/vagrant-scripts/toxiproxy_setup_proxies.sh /home/vagrant
-cp /tmp/vagrant-scripts/reset-env.sh /home/vagrant
-cp /tmp/vagrant-scripts/random_offers.lua /home/vagrant
-chmod +x /home/vagrant/toxiproxy_setup_proxies.sh
-chmod +x /home/vagrant/reset-env.sh
+cp /tmp/vagrant-scripts/toxiproxy_setup_proxies.sh /home/ubuntu
+cp /tmp/vagrant-scripts/reset-env.sh /home/ubuntu
+cp /tmp/vagrant-scripts/random_offers.lua /home/ubuntu
+chmod +x /home/ubuntu/toxiproxy_setup_proxies.sh
+chmod +x /home/ubuntu/reset-env.sh
 
 ### Services start
 systemctl daemon-reload
