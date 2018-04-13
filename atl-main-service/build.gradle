@@ -1,0 +1,63 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'pl.allegro.atl'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+bootRun {
+	jvmArgs = [
+			'-ms256m',
+			'-mx512m',
+			'-Dcom.sun.management.jmxremote',
+			'-Dcom.sun.management.jmxremote.port=9010',
+			'-Dcom.sun.management.jmxremote.rmi.port=9010',
+			'-Djava.rmi.server.hostname=127.0.0.1',
+			'-Dcom.sun.management.jmxremote.authenticate=false',
+			'-Dcom.sun.management.jmxremote.ssl=false'
+	]
+}
+
+project.ext.versions = [
+        'micrometer': '1.0.2'
+]
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.retry:spring-retry')
+
+	compile('org.springframework.boot:spring-boot-starter-undertow')
+	compile('org.jolokia:jolokia-core')
+
+	compile("io.micrometer:micrometer-registry-jmx:${versions.micrometer}")
+	compile("io.micrometer:micrometer-registry-graphite:${versions.micrometer}")
+
+	compile('com.google.guava:guava:24.1-jre')
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+}
+
+configurations {
+	compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}

@@ -1,0 +1,30 @@
+servers:
+  - port: 9010
+    host: localhost
+    numQueryThreads : 1
+    queries:
+      - outputWriters:
+          - "@class": com.googlecode.jmxtrans.model.output.GraphiteWriterFactory
+            port: 2003
+            host: localhost
+        obj: org.mongodb.driver:type=ConnectionPool,*
+        attr:
+          - Size
+          - WaitQueueSize
+          - MaxSize
+        typeNames:
+          - host
+          - port
+        resultAlias: mongodbConnectionPool
+      - outputWriters:
+          - "@class": com.googlecode.jmxtrans.model.output.GraphiteWriterFactory
+            port: 2003
+            host: localhost
+        obj: org.xnio:type=Xnio,*
+        attr:
+          - WorkerQueueSize
+          - CoreWorkerPoolSize
+          - MaxWorkerPoolSize
+        typeNames:
+          - worker
+        resultAlias: undertow

@@ -1,0 +1,13 @@
+[Unit]
+Description=toxiproxy is a proxy to simulate network and system conditions
+After=network.target
+Documentation=man:toxiproxy(1)
+
+[Service]
+User=toxiproxy
+Group=toxiproxy
+EnvironmentFile=/etc/default/toxiproxy
+ExecStart=/usr/bin/toxiproxy-server -port $TOXIPROXY_PORT -host $TOXIPROXY_HOST $TOXIPROXY_OPTS
+
+[Install]
+WantedBy=multi-user.target
